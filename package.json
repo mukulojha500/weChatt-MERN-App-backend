@@ -6,6 +6,9 @@
   "scripts": {
     "start": "nodemon backend/server.js"
   },
+  "engines": {
+    "node": ">=NODE_JS_VERSION"
+},
   "author": "Mukul Ojha",
   "license": "ISC",
   "dependencies": {
