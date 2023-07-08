@@ -7,7 +7,7 @@
     "start": "nodemon backend/server.js"
   },
   "engines": {
-    "node": ">=NODE_JS_VERSION"
+    "node": ">=14.20.1"
 },
   "author": "Mukul Ojha",
   "license": "ISC",
