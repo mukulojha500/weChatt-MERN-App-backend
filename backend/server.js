@@ -6,10 +6,15 @@ const chatRoutes = require("./routes/chatRoutes.js");
 const messageRoutes = require("./routes/messageRoutes.js");
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware.js");
 const path = require('path')
+const socketIO = require("socket.io");
+const http = require("http");
 
 const app = express();
 dotenv.config();
 connectDB();
+
+const server = http.createServer(app);
+const io = socketIO(server);
 
 app.use(express.json());
 
@@ -33,17 +38,17 @@ app.use("/api/message", messageRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 8000;
+//const PORT = process.env.PORT || 8000;
 
-const server = app.listen(PORT, console.log(`Server started on PORT ${PORT}`));
+//server.listen(PORT, console.log(`Server started on PORT ${PORT}`));
 
-const io = require("socket.io")(server, {
-  pingTimeout: 60000,
-  cors: {
-    origin:
-      "https://frontend-54rj.onrender.com",
-  },
-});
+//const io = require("socket.io")(server, {
+  //pingTimeout: 60000,
+  //cors: {
+    //origin:
+      //"https://frontend-54rj.onrender.com",
+  //},
+//});
 
 io.on("connection", (socket) => {
   console.log("connected to socket.io");
@@ -77,3 +82,7 @@ io.on("connection", (socket) => {
     socket.leave(userData._id);
   });
 });
+
+const PORT = process.env.PORT || 8000;
+
+server.listen(PORT, console.log(`Server started on PORT ${PORT}`));
